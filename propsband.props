@@ -1,0 +1,6 @@
+//<<bandselection>>R{"latency"}max=?[F dtime=tmax]
+//<<bandselection>>R{"jointlatencyenergy"}max=?[F dtime=tmax]
+<<bandselection>>R{"nopref"}max=?[F dtime=tmax]
+//<<bandselection>>R{"energy"}max=?[F dtime=tmax]
+//<<bandselection>>R{"server"}max=?[F dtime=tmax]
+//<<bandselection>>R{"eqlatency"}max=?[F dtime=tmax]
