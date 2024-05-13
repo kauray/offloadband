@@ -235,6 +235,7 @@ rewards "latency"
     latency = 2 : 300;
     latency = 3 : 200;
     latency = 4 : 100;
+    execution = 1 : 100;
 endrewards
 
 rewards "nopref"
@@ -246,7 +247,7 @@ rewards "energy"
 endrewards
 
 rewards "server"
-    execution = 1 : 500;
+    execution = 1 : 1;
 endrewards
 
 rewards "jointlatencyenergy"

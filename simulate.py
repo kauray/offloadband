@@ -175,13 +175,13 @@ pr1 = pr1[:-1]
 #generate strategy in prism
 #os.system('')
 
-output = subprocess.Popen('/home/kauray/Desktop/prism-games-3.0-linux64/bin/prism model.pm props.props -const tenv=32,pbat=7.5' + pr1 + ' -exportstrat rps2_strat3.dot -exportstates model.sta ', shell = True)
+output = subprocess.Popen('/Users/kaustabha/Documents/PrismGames/prism-games-3.0-osx64/bin/prism model.pm props.props -const tenv=32,pbat=7.5' + pr1 + ' -exportstrat rps2_strat3.dot -exportstates model.sta ', shell = True)
 output.wait()
 
 output = subprocess.Popen('mv adv.tra advoffload.tra', shell = True)
 output.wait()
 
-output = subprocess.Popen('/home/kauray/Desktop/prism-games-3.0-linux64/bin/prism modelband.pm propsband.props -const tenv=32,pbat=7.5' + pr1 + ' -exportstrat rps2_strat3.dot -exportstates modelband.sta ', shell = True)
+output = subprocess.Popen('/Users/kaustabha/Documents/PrismGames/prism-games-3.0-osx64/bin/prism modelband.pm propsband.props -const tenv=32,pbat=7.5' + pr1 + ' -exportstrat rps2_strat3.dot -exportstates modelband.sta ', shell = True)
 output.wait()
 #print(output)
 #input()
@@ -423,13 +423,13 @@ for i in range(tmax):
         thvalue = sorteddataserver[np.random.randint(index1, index2 + 1)]
 
         #find band from advband.tra
-        if (0,bandexecution,32,i,0) not in statesband:
+        '''if (0,bandexecution,32,i,0) not in statesband:
             for key,value in statesband.items():
                 print(key, value)
-                input()
+                #input()
             print("Error")
-            input()
-        stateidband = statesband[(0,bandexecution,32,i,0)]
+            input()'''
+        stateidband = statesband[(0,bandexecution,32,i+1,0)]
         actband = actiondictband[stateidband]
 
         if actband == 'band4g':
@@ -445,15 +445,19 @@ for i in range(tmax):
         temp2 = math.ceil(tenv)
 
         #find band energy
-        etdtband = batteryenergyband - econsumedserver4g
-        batteryenergyband = math.floor(etdtband)
+        if bandexecution == 0:
+            etdtband = batteryenergyband - econsumedserver4g
+            batteryenergyband = math.floor(etdtband)
 
-        etdtband = batteryenergyband - econsumedserver5glow
-        batteryenergyband = math.floor(etdtband)
+        if bandexecution == 1:
+            etdtband = batteryenergyband - econsumedserver5glow
+            batteryenergyband = math.floor(etdtband)
 
-        etdtband = batteryenergyband - econsumedserver5gmmwave
-        batteryenergyband = math.floor(etdtband)
+        if bandexecution == 2:
+            etdtband = batteryenergyband - econsumedserver5gmmwave
+            batteryenergyband = math.floor(etdtband)
 
+        print(etdtband)
     turn = 0
 
     '''
@@ -632,8 +636,8 @@ barWidth = 0.25
 br1 = np.arange(len(energyarray))
 br2 = [x + barWidth for x in br1]
 
-plt.bar(br1,energyarray,label="Energy with Band Selection",color='b',width=barWidth)
-plt.bar(br2,bandenergyarray,label="Energy", color='g',width=barWidth)
+plt.bar(br1,bandenergyarray,label="Energy with Band Selection",color='b',width=barWidth)
+plt.bar(br2,energyarray,label="Energy", color='g',width=barWidth)
 
 plt.legend(loc='lower left')
 plt.xticks([r + barWidth for r in range(len(energyarray))],
